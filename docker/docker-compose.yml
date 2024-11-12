@@ -1,25 +1,35 @@
-version: '2'
+version: '3'
 services:
   app:
     container_name: filestash
-    image: machines/filestash
+    image: 2b3253f61cd8
     restart: always
     environment:
-    - APPLICATION_URL=
-    - GDRIVE_CLIENT_ID=<gdrive_client>
-    - GDRIVE_CLIENT_SECRET=<gdrive_secret>
-    - DROPBOX_CLIENT_ID=<dropbox_key>
-    - ONLYOFFICE_URL=http://onlyoffice
-    - CANARY=true
+      - APPLICATION_URL=https://docs.optimuscore.cloud
+    #- GDRIVE_CLIENT_ID=<gdrive_client>
+    #- GDRIVE_CLIENT_SECRET=<gdrive_secret>
+    #- DROPBOX_CLIENT_ID=<dropbox_key>
+      - ONLYOFFICE_URL=https://onlyoffice.optimuscore.cloud
+    #  - ONLYOFFICE_URL=http://192.168.1.136:7080
     ports:
-    - "8334:8334"
+      - "8334:8334"
     volumes:
-    - filestash:/app/data/state/
+      - filestash_b:/app/data/state/
+    networks:
+      - app_net
 
   onlyoffice:
     container_name: filestash_oods
     image: onlyoffice/documentserver:7.1
-    restart: always
+    ports:
+      - "7080:80"
+      - "8443:443"
+    networks:
+      - app_net
+    restart: unless-stopped
 
+networks:
+  app_net:
+    external: true
 volumes:
-    filestash: {}
+    filestash_b: {}
