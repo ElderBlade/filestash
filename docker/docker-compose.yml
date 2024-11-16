@@ -2,14 +2,14 @@ version: '3'
 services:
   app:
     container_name: filestash
-    image: 2b3253f61cd8
+    image: 80d508a5cecc
     restart: always
     environment:
       - APPLICATION_URL=https://docs.optimuscore.cloud
     #- GDRIVE_CLIENT_ID=<gdrive_client>
     #- GDRIVE_CLIENT_SECRET=<gdrive_secret>
     #- DROPBOX_CLIENT_ID=<dropbox_key>
-      - ONLYOFFICE_URL=https://onlyoffice.optimuscore.cloud
+      - ONLYOFFICE_URL=<onlyoffice_url>
       - CANARY=true
     ports:
       - "8334:8334"
